@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>ReferenceServiceEvents</AssemblyName>
+    <RootNamespace>Microsoft.MarketplaceServices.ReferenceServiceEvents</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.MarketplaceServices.Prod.Build" Version="1.0.5" />
+    <PackageReference Include="Microsoft.MarketplaceServicesCore.Core" Version="1.1.1" />
+    <PackageReference Include="Microsoft.MarketplaceServicesCore.Core.Logging" Version="4.0.0" />
+  </ItemGroup>
+
+</Project>

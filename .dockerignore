@@ -1,0 +1,6 @@
+*
+!drop\Release
+!packages\GenevaMonitoringAgent*
+*.pdb
+bin\
+obj\

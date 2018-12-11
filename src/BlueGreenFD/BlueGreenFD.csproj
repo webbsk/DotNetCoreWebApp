@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp2.1</TargetFramework>
+		<RootNamespace>Microsoft.MarketplaceServices.ReferenceFD</RootNamespace>
+		<AssemblyName>ReferenceFD</AssemblyName>
+		<AssemblyTitle>ReferenceFD</AssemblyTitle>
+		<AssemblyProduct>ReferenceFD</AssemblyProduct>
+		<DocumentationFile>$(OutputPath)/$(AssemblyName).xml</DocumentationFile>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<WarningsAsErrors />
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<ApplicationIcon />
+		<StartupObject>Microsoft.MarketplaceServices.ReferenceFD.Program</StartupObject>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.2">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.CommonSchema.Services" Version="5.1.218" />
+		<PackageReference Include="Microsoft.CommonSchema.Services.ServiceFabricContainer" Version="5.1.218" />
+		<PackageReference Include="Microsoft.MarketplaceServices.Prod.Build" Version="1.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlueGreenServiceConfiguration\BlueGreenServiceConfiguration.csproj" />
+		<ProjectReference Include="..\BlueGreenServiceContracts\BlueGreenServiceContracts.csproj" />
+		<ProjectReference Include="..\BlueGreenServiceControllers\BlueGreenServiceControllers.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="start.bat">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>

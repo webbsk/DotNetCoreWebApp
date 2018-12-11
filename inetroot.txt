@@ -1,0 +1,4 @@
+This is a little marker file which identifies the enlistment root.
+
+It is used in project files to compute the root directory of the
+enlistment.

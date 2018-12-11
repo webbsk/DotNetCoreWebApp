@@ -1,0 +1,235 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!--
+      Deployment.targets
+
+      Handles projects that do deployment: compile service manifests,
+      copy over tools, &c.
+  -->
+
+  <PropertyGroup>
+    <InstallToolsPath Condition="'$(InstallToolsPath)'==''">InstallTools</InstallToolsPath>    
+    <IncludeStandardEnvironments Condition="'$(IncludeStandardEnvironments)'==''">true</IncludeStandardEnvironments>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(IncludeStandardEnvironments)'=='true'">
+    <TargetEnvironment Include="prod" />
+    <TargetEnvironment Include="int2" />
+    <TargetEnvironment Include="partner" />
+  </ItemGroup>
+  
+  <!--
+      Disable automatic copying; it causes problems because we aren't
+      actually compiling a single thing.
+  -->
+  <PropertyGroup>
+    <SkipCopyBuildProduct>true</SkipCopyBuildProduct>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ProjectReference>
+      <ReferenceOutputAssembly Condition="'%(ReferenceOutputAssembly)'==''">false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+
+  <!-- Needed for VS -->
+  <Target Name="CreateManifestResourceNames" />
+
+  <!--
+      CoreCompile: Do the actual "deployment" work, above and beyond
+      copying files into the deployment root.
+  -->
+  <PropertyGroup>
+    <CoreCompileDependsOn>
+      $(CoreCompileDependsOn);
+      OctopusCompile;
+      CopyIISInstaller;
+      CopyPropCert;
+      MungeRoutes;
+      CopySVRInstaller
+    </CoreCompileDependsOn>
+  </PropertyGroup>
+  <Target Name="CoreCompile" DependsOnTargets="$(CoreCompileDependsOn)" />
+
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+
+  <!--
+      OctopusCompile: Create the service.xml based on the xdl files the project folder
+  -->
+  <PropertyGroup>
+    <NeedsOctopusCompile Condition="'$(NeedsOctopusCompile)'==''">true</NeedsOctopusCompile>
+    <XdlCompilerPath>$(INETROOT)\private\tools\binaries\xdlc\</XdlCompilerPath>
+    <XdlCompile>$(XdlCompilerPath)xdlc.exe</XdlCompile>
+  </PropertyGroup>
+
+  <!-- Include template files in dependency checking -->
+  <ItemGroup>
+    <Xdl Include="$(XdlCompilerPath)*.xml" />
+  </ItemGroup>
+  
+  <Target Name="OctopusCompile" Condition ="$(NeedsOctopusCompile)" Inputs="@(Xdl)" Outputs="$(OutDir)\service.xml">
+    <Exec Command="&quot;$(XdlCompile)&quot; &quot;$(MSBuildProjectDirectory)&quot; &quot;$(OutDir) &quot;"  />
+  </Target>
+
+  <!--
+      MungeRoutes: Create the routing files needed for all the
+      environments that we plan on targeting.
+  -->
+  <Target
+      Name="MungeRoutes"
+      DependsOnTargets="_GenerateRouteMetadata;_CreateRouteFiles"
+      />
+
+  <Target Name="_GenerateRouteMetadata">
+    <CreateItem
+        Include="@(RouterConfig)"
+        AdditionalMetadata="TargetEnvironment=%(TargetEnvironment.Identity)">
+      
+      <Output ItemName="_RouterConfigWithEnvironment" TaskParameter="Include"/>
+
+    </CreateItem>
+
+    <CreateItem
+        Include="@(_RouterConfigWithEnvironment)"
+        AdditionalMetadata="TargetConfigName=$(OutDir)%(RelativeDir)%(Filename).%(TargetEnvironment)%(Extension)">
+
+      <Output ItemName="_RouterConfigWithTargetConfigName" TaskParameter="Include"/>
+      
+    </CreateItem>
+  </Target>
+
+  <Target
+      Name="_CreateRouteFiles"
+      Inputs="%(_RouterConfigWithTargetConfigName.Identity)"
+      Outputs="%(_RouterConfigWithTargetConfigName.TargetConfigName)"
+      >
+
+    <Message
+        Text="Modifying %(_RouterConfigWithTargetConfigName.Identity) for %(_RouterConfigWithTargetConfigName.TargetEnvironment)..." />
+    
+    <TokenReplace
+        InputPath="%(_RouterConfigWithTargetConfigName.FullPath)"
+        OutputPath="%(_RouterConfigWithTargetConfigName.TargetConfigName)"
+        Token="[environment]"
+        Replacement="%(_RouterConfigWithTargetConfigName.TargetEnvironment)"
+        />
+    
+  </Target>
+
+  <!-- 
+      CopyPropCert: Services that have certificates to install
+      will need the PropCert tool for deployment.
+  -->
+  <PropertyGroup>
+    <NeedsPropCert  Condition="'$(NeedsPropCert)'==''">false</NeedsPropCert>
+  </PropertyGroup>
+
+  <Target Name="CopyPropCert" Condition="$(NeedsPropCert)">
+    <!--
+        We can't be sure it is built, and anyway, I want to know where
+        it gets built to.
+    -->
+    <MSBuild
+        Projects="$(INETROOT)\private\tools\propcert\propcert.csproj"
+        Targets="Build">
+
+      <Output TaskParameter="TargetOutputs" ItemName="_PropCertExe" />
+
+    </MSBuild>
+
+    <Copy
+        SourceFiles="@(_PropCertExe)"
+        DestinationFolder="$(OutDir)$(InstallToolsPath)"
+        SkipUnchangedFiles="true">
+
+      <Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
+
+    </Copy>
+  </Target>
+  
+  <!--
+      CopyIISInstaller: Services that have IIS websites and are
+      deploying via octopus need the IIS installer tool for deployment.
+  -->
+  <PropertyGroup>
+    <NeedsIISInstaller Condition="'$(NeedsIISInstaller)'==''">true</NeedsIISInstaller>
+  </PropertyGroup>
+
+  <Target Name="CopyIISInstaller" Condition="$(NeedsIISInstaller)">
+    <!--
+        We can't be sure it is built, and anyway, I want to know where
+        it gets built to.
+    -->
+    <MSBuild
+        Projects="$(INETROOT)\private\tools\iisinstaller\iisinstaller.csproj"
+        Targets="Build">
+
+      <Output TaskParameter="TargetOutputs" ItemName="_IISInstallerExe" />
+
+    </MSBuild>
+
+    <Copy
+        SourceFiles="@(_IISInstallerExe)"
+        DestinationFolder="$(OutDir)$(InstallToolsPath)"
+        SkipUnchangedFiles="true">
+
+      <Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
+
+    </Copy>
+  </Target>
+
+  <!--
+      Copy SVR Installer: Copy over the SVR config tool, if we have
+      routes that need to be configured.
+  -->
+  <PropertyGroup>
+    <_RouterConfigProps>@(RouterConfig)</_RouterConfigProps>
+    <NeedsSVRInstaller Condition="'$(NeedsSVRInstaller)'=='' and '$(_RouterConfigProps)'!=''">true</NeedsSVRInstaller>
+    <NeedsSVRInstaller Condition="'$(NeedsSVRInstaller)'=='' and '$(_RouterConfigProps)'==''">false</NeedsSVRInstaller>
+  </PropertyGroup>
+
+  <Target
+      Name="CopySVRInstaller"
+      Condition="$(NeedsSVRInstaller)">
+
+    <Message Text="Copying the SVR installer to $(OutDir)$(InstallToolsPath)..." />
+    
+    <ItemGroup>
+      <_SVRFiles Include="$(EXTPATH)\SlsSetup\Routing\*" />
+    </ItemGroup>
+    
+    <Copy
+        SourceFiles="@(_SVRFiles)"
+        DestinationFolder="$(OutDir)$(InstallToolsPath)"
+        SkipUnchangedFiles="true">
+      <Output TaskParameter="DestinationFiles" ItemName="FileWrites"/>
+    </Copy>    
+  </Target>
+  
+  
+  <!-- And there isn't one of these standard in the FX because....? -->
+  <UsingTask
+    TaskName="TokenReplace"
+    TaskFactory="CodeTaskFactory"
+    AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" >
+    <ParameterGroup>
+      <InputPath ParameterType="System.String" Required="true" />
+      <OutputPath ParameterType="System.String" Required="true" />
+      <Token ParameterType="System.String" Required="true" />
+      <Replacement ParameterType="System.String" Required="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System"/>
+      <Using Namespace="System.IO"/>
+      <Code Type="Fragment" Language="cs">
+<![CDATA[
+string content = File.ReadAllText(InputPath);
+content = content.Replace(Token, Replacement);
+if (!Directory.Exists(Path.GetDirectoryName(OutputPath)))
+{
+    Directory.CreateDirectory(Path.GetDirectoryName(OutputPath));
+}
+File.WriteAllText(OutputPath, content);
+]]>
+      </Code>
+    </Task>
+  </UsingTask>  
+</Project>

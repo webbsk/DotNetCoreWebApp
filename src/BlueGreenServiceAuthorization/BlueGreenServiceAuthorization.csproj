@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>ReferenceServiceAuthorization</AssemblyName>
+    <RootNamespace>Microsoft.MarketplaceServices.ReferenceServiceAuthorization</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.1.2" />
+    <PackageReference Include="Microsoft.MarketplaceServices.Prod.Build" Version="1.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BlueGreenServiceExceptions\BlueGreenServiceExceptions.csproj" />
+  </ItemGroup>
+
+</Project>
