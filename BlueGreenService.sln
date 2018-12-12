@@ -15,8 +15,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{61D1B4EA-1E74-4335-BBC3-3F85FC8E9954}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
-		referencefd.dockerfile = referencefd.dockerfile
-		referenceworker.dockerfile = referenceworker.dockerfile
+		BlueGreenfd.dockerfile = BlueGreenfd.dockerfile
+		BlueGreenworker.dockerfile = BlueGreenworker.dockerfile
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlueGreenFD", "src\BlueGreenFD\BlueGreenFD.csproj", "{DA4057F8-933E-4375-950A-0A0B5D39EE59}"

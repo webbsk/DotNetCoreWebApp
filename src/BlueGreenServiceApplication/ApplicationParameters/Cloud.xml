@@ -3,7 +3,7 @@
   <Parameters>
     <Parameter Name="ReferenceWorker_InstanceCount" Value="-1" />
     <Parameter Name="ReferenceFD_InstanceCount" Value="-1" />
-    <Parameter Name="VAULTNAME" Value="mp-refsvc-int-wusf-kv.vault.azure.net"/>
+    <Parameter Name="VAULTNAME" Value="bluegreenkv.vault.azure.net"/>
     <Parameter Name="Environment" Value="__EnvironmentName__"/>
   </Parameters>
 </Application>

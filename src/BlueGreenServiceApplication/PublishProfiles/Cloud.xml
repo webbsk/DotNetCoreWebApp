@@ -21,9 +21,9 @@
                                     ServerCertThumbprint="0123456789012345678901234567890123456789" />
   -->
     <ClusterConnectionParameters
-		ConnectionEndpoint="mp-refsvc-int-wusf.westus.cloudapp.azure.com:19000"
+		ConnectionEndpoint="bluegreensvc.westus2.cloudapp.azure.com:19000"
 		AzureActiveDirectory="true"
-    ServerCertThumbprint="231A15D356973FF8AEBF55D88722BA7268B481AB" />
+    ServerCertThumbprint="04fac65da926c95bf8c12557600b85a1b173f494" />
 
     <ApplicationParameterFile Path="..\ApplicationParameters\Cloud.xml" />
   <CopyPackageParameters CompressPackage="true" />

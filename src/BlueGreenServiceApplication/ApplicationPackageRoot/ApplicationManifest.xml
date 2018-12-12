@@ -28,7 +28,7 @@
         <ServiceManifestRef ServiceManifestName="ReferenceFDPkg" ServiceManifestVersion="1.0.0" />
         <ConfigOverrides />
         <EnvironmentOverrides CodePackageRef="Code">
-            <EnvironmentVariable Name="VAULTNAME" Value="mp-refsvc-int-wusf-kv.vault.azure.net"/>
+            <EnvironmentVariable Name="VAULTNAME" Value="bluegreenkv.vault.azure.net"/>
             <EnvironmentVariable Name="Environment" Value="INT" />
         </EnvironmentOverrides>
         <Policies>

@@ -69,7 +69,7 @@ namespace Microsoft.MarketplaceServices.ReferenceServiceConfiguration.Service
             }
         }
 
-        public override Uri KeyVaultBaseUri => new Uri("https://mp-refsvc-int-wusf-kv.vault.azure.net/");
+        public override Uri KeyVaultBaseUri => new Uri("https://bluegreenkv.vault.azure.net/");
 
         public override long MaxRequestBodySize => 10485760;
 
