@@ -19,7 +19,8 @@
         <Policies>
             <ContainerHostPolicies CodePackageRef="Code">
                 <!-- See https://aka.ms/I7z0p9 for how to encrypt your repository password -->
-                <RepositoryCredentials AccountName="refsvc" PasswordEncrypted="false" Password="" />
+                <!--[SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Secret must be decrypted by certificate on cluster to be useable.")]-->
+                <RepositoryCredentials AccountName="refsvc" PasswordEncrypted="true" Password="MIIB7QYJKoZIhvcNAQcDoIIB3jCCAdoCAQAxggFVMIIBUQIBADA5MCUxIzAhBgNVBAMTGndlc3R1czIuY2xvdWRhcHAuYXp1cmUuY29tAhA6seB6MLhCB7+hbi5DYd0DMA0GCSqGSIb3DQEBBzAABIIBAI8aeTM/BMNjmTXZY6Bih2Up+hOvKc0xC4FnpGF7LvjZ+BcdhhUudxs0HdF+AgyRAGYzC+v8mfPMhjGKkOLu1QQ8LhTmIlMCk9/yhYMRIZSOYoS1Lth2mVp9LkULzacEyQ9FTwyQfZbHG1IpRM9zU1XMoEaosxyreDZ9CpoXyaEUwiWST/178luXBlqIA9O9QDbdQJCF9M096um5X/sC1u1KYCxgQ5C19HxKENge/k4PidR4p+kqzjD/yiyRquqtPcOQWdtEBpqVneN4F8jlbJlLG+jYUOsqzdLgRS1eUEM+bWrBCPQmxDOMpeQ+vppigvkIUFkWSjr5CsiyiQef9b0wfAYJKoZIhvcNAQcBMB0GCWCGSAFlAwQBKgQQYDFxZ0C+7irFnPMGLb31cIBQhWf72nXTBffcyzpj1GgHJzHc+es/IisxrU/qKSRxj0Llu/agcz+p+3zyVMqFsZXoM0NGsC88VHsxswLSfIBktqVR6HTfSawso8ypA8Oti4o=" />
                 <PortBinding ContainerPort="8080" EndpointRef="ReferenceWorkerTypeEndpoint" />
             </ContainerHostPolicies>
         </Policies>
@@ -34,7 +35,8 @@
         <Policies>
             <ContainerHostPolicies CodePackageRef="Code">
                 <!-- See https://aka.ms/I7z0p9 for how to encrypt your repository password -->
-                <RepositoryCredentials AccountName="refsvc" PasswordEncrypted="false" Password="" />
+                <!--[SuppressMessage("Microsoft.Security", "CS002:SecretInNextLine", Justification="Secret must be decrypted by certificate on cluster to be useable.")]-->
+                <RepositoryCredentials AccountName="refsvc" PasswordEncrypted="true" Password="MIIB7QYJKoZIhvcNAQcDoIIB3jCCAdoCAQAxggFVMIIBUQIBADA5MCUxIzAhBgNVBAMTGndlc3R1czIuY2xvdWRhcHAuYXp1cmUuY29tAhA6seB6MLhCB7+hbi5DYd0DMA0GCSqGSIb3DQEBBzAABIIBAI8aeTM/BMNjmTXZY6Bih2Up+hOvKc0xC4FnpGF7LvjZ+BcdhhUudxs0HdF+AgyRAGYzC+v8mfPMhjGKkOLu1QQ8LhTmIlMCk9/yhYMRIZSOYoS1Lth2mVp9LkULzacEyQ9FTwyQfZbHG1IpRM9zU1XMoEaosxyreDZ9CpoXyaEUwiWST/178luXBlqIA9O9QDbdQJCF9M096um5X/sC1u1KYCxgQ5C19HxKENge/k4PidR4p+kqzjD/yiyRquqtPcOQWdtEBpqVneN4F8jlbJlLG+jYUOsqzdLgRS1eUEM+bWrBCPQmxDOMpeQ+vppigvkIUFkWSjr5CsiyiQef9b0wfAYJKoZIhvcNAQcBMB0GCWCGSAFlAwQBKgQQYDFxZ0C+7irFnPMGLb31cIBQhWf72nXTBffcyzpj1GgHJzHc+es/IisxrU/qKSRxj0Llu/agcz+p+3zyVMqFsZXoM0NGsC88VHsxswLSfIBktqVR6HTfSawso8ypA8Oti4o=" />
                 <PortBinding ContainerPort="80" EndpointRef="ReferenceFDTypeEndpointHttp" />
                 <PortBinding ContainerPort="443" EndpointRef="ReferenceFDTypeEndpointHttps" />
             </ContainerHostPolicies>
