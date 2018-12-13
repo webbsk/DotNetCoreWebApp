@@ -27,16 +27,16 @@ ENV DOTNET_RUNNING_IN_CONTAINER=true
 SHELL ["cmd"]
 # install the Geneva docker shim
 WORKDIR /Geneva
-COPY .\drop\Release\Product\ReferenceServiceSetup\Monitoring\DockerShim .
+COPY .\drop\Release\BlueGreenServiceSetup\Monitoring\DockerShim .
 RUN MonAgentDockerShimLauncher.exe -install
 
 # copy setup output
 WORKDIR /app
-COPY .\drop\Release\Product\ReferenceServiceSetup ReferenceServiceSetup
+COPY .\drop\Release\BlueGreenServiceSetup BlueGreenServiceSetup
 
 # copy build output
-COPY .\drop\Release\Product\ReferenceWorker ReferenceWorker
-COPY .\drop\Release\Product\ReferenceServiceSetup\entrypointworker.bat entrypointworker.bat
+COPY .\drop\Release\BlueGreenWorker BlueGreenWorker
+COPY .\drop\Release\BlueGreenServiceSetup\entrypointworker.bat entrypointworker.bat
 
 # expose ports
 # EXPOSE 80
