@@ -19,28 +19,28 @@ if ((Get-FileHash dotnet.zip -Algorithm sha512).Hash -ne $Env:DOTNET_DOWNLOAD_SH
 Expand-Archive dotnet.zip -DestinationPath $Env:ProgramFiles\dotnet; `
 Remove-Item -Force dotnet.zip
 
-RUN setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '\dotnet')
+ RUN setx /M PATH $($Env:PATH + ';' + $Env:ProgramFiles + '\dotnet')
 
 # Enable detection of running in a container
-ENV DOTNET_RUNNING_IN_CONTAINER=true
+  ENV DOTNET_RUNNING_IN_CONTAINER=true
 
-SHELL ["cmd"]
+  SHELL ["cmd"]
 # install the Geneva docker shim
-WORKDIR /Geneva
-COPY .\drop\Release\BlueGreenServiceSetup\Monitoring\DockerShim .
-RUN MonAgentDockerShimLauncher.exe -install
+  WORKDIR /Geneva
+  COPY .\drop\Release\BlueGreenServiceSetup\Monitoring\DockerShim .
+  RUN ["c:\\Geneva\\MonAgentDockerShimLauncher.exe -install"]
 
 # copy setup output
-WORKDIR /app
-COPY .\drop\Release\BlueGreenServiceSetup BlueGreenServiceSetup
+  WORKDIR /app
+  COPY .\drop\Release\BlueGreenServiceSetup BlueGreenServiceSetup
 
 # copy build output
-COPY .\drop\Release\BlueGreenWorker BlueGreenWorker
-COPY .\drop\Release\BlueGreenServiceSetup\entrypointworker.bat entrypointworker.bat
+  COPY .\drop\Release\BlueGreenWorker BlueGreenWorker
+  COPY .\drop\Release\BlueGreenServiceSetup\entrypointworker.bat entrypointworker.bat
 
 # expose ports
-# EXPOSE 80
-# EXPOSE 443
+  EXPOSE 80
+  EXPOSE 443
 
 # start the service
-ENTRYPOINT ["cmd.exe", "/k", "entrypointworker.bat"]
+  ENTRYPOINT ["cmd.exe", "/k", "entrypointworker.bat"]

@@ -1,8 +1,8 @@
-ECHO "Run ReferenceFD Setup"
-CD ReferenceServiceSetup
+ECHO "Run BlueGreenService Setup"
+CD BlueGreenServiceSetup
 call setup.bat
 CD ..
     
-ECHO "Run Reference FD"
-CD ReferenceFD 
+ECHO "Run BlueGreenFD"
+CD BlueGreenFD 
 call start.bat
