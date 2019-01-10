@@ -110,8 +110,8 @@ namespace Microsoft.MarketplaceServices.ReferenceServiceTests
                 host.Dispose();
             }
 
-            ResetSslCert(EnvironmentRuntime.ServiceConfiguration.HttpsCertificate);
-            RemoveSelfSignedCertFromRoot(EnvironmentRuntime.ServiceConfiguration.HttpsCertificate);
+            //ResetSslCert(EnvironmentRuntime.ServiceConfiguration.HttpsCertificate);
+            //RemoveSelfSignedCertFromRoot(EnvironmentRuntime.ServiceConfiguration.HttpsCertificate);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace Microsoft.MarketplaceServices.ReferenceServiceTests
             ReferenceClientV1 = new ReferenceClientV1(ReferenceClientSettings, clientHandler);
             ReferenceClientV2 = new ReferenceClientV2(ReferenceClientSettings, clientHandler);
 
-            SetupSelfSignedTestCertAsRoot(configuration.HttpsCertificate);
+            //SetupSelfSignedTestCertAsRoot(configuration.HttpsCertificate);
 
             SetupSslCert(configuration.HttpsCertificate, configuration.HttpsApplicationId, port: "8086");
 
@@ -181,17 +181,17 @@ namespace Microsoft.MarketplaceServices.ReferenceServiceTests
         static void SetupSslCert(CertDefinition cert, Guid sslApplicationId, string port)
         {
             // Install the test certificate used in the test
-            InstallCertificate(cert);
+            // InstallCertificate(cert);
 
             X509Certificate2 certificate = GetCertificate(cert);
 
             // We will try to install the certificate for SLL Binding
             // unfortunately this required admin priviledge, but this step is only needed once per machine
-            if (certificate == null)
-            {
-                InstallCertificate(cert);
-                certificate = GetCertificate(cert);
-            }
+            //if (certificate == null)
+            //{
+            //    InstallCertificate(cert);
+            //    certificate = GetCertificate(cert);
+            //}
 
             // found/installed the certificate in LocalSystem
             // Now check if it is binded properly to the port

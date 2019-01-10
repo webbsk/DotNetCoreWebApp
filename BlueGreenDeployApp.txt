@@ -1,0 +1,11 @@
+Connect-ServiceFabricCluster -ConnectionEndpoint mp-int-bgs-sf.westus2.cloudapp.azure.com:19000 -KeepAliveIntervalInSec 10 -X509Credential -ServerCertThumbprint 70ea84f9410099f20ebb52f20dc19750d64c06d7 -FindType FindByThumbprint -FindValue 9ECEC56B19B076E62F00F734B09A9899E17F359D       -StoreLocation CurrentUser -StoreName My
+
+BlueGreenDeployApp
+ApplicationID 31629f2e-e01d-4717-9796-111975e9d19
+ObjectID bf6f9c70-9583-4bd8-8d44-ffc2a3ed48f1
+
+password
+4bgQuG405vVk0BAdSGFp6kwOMGnNab7GI6F7OQ0sk1M=
+
+$ConnectArgs = @{  ConnectionEndpoint = 'mp-int-bgs-sf.westus2.cloudapp.azure.com:19000';  X509Credential = $True;  StoreLocation = 'CurrentUser';  StoreName = "MY";  ServerCommonName = "bluegreenprimary.com";  FindType = 'FindByThumbprint';  FindValue = "204E019F786B8EA2DE7B1863F77ED92D215C9B73"   }
+Connect-ServiceFabricCluster @ConnectArgs

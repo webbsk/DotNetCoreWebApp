@@ -72,7 +72,7 @@ namespace Microsoft.MarketplaceServices.ReferenceServiceControllers.Startup
             var monitor = ControlBreakMonitor.Start(signal);
             ServiceConfigurationBase serviceConfiguration
                 = environmentRuntime.ServiceConfiguration;
-
+            
             IWebHost host = WebHost.CreateDefaultBuilder()
                  .ConfigureServices(
                      s =>

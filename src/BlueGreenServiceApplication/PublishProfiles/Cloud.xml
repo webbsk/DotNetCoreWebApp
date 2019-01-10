@@ -20,14 +20,13 @@
                                     AzureActiveDirectory="true"
                                     ServerCertThumbprint="0123456789012345678901234567890123456789" />
   -->
-    <ClusterConnectionParameters
-		  ConnectionEndpoint="bluegreensvc.westus2.cloudapp.azure.com:19000"
-		  X509Credential="true"
-      ServerCertThumbprint="04fac65da926c95bf8c12557600b85a1b173f494"
-      FindType="FindByThumbprint"
-      FindValue="04fac65da926c95bf8c12557600b85a1b173f494"      
-      StoreLocation="CurrentUser"
-      StoreName="My" />
+    <ClusterConnectionParameters ConnectionEndpoint="mp-int-bgs-sf.westus2.cloudapp.azure.com:19000" 
+                                 X509Credential="true" 
+                                 ServerCertThumbprint="70ea84f9410099f20ebb52f20dc19750d64c06d7" 
+                                 FindType="FindByThumbprint"
+                                 FindValue="9ECEC56B19B076E62F00F734B09A9899E17F359D"
+                                 StoreLocation="LocalMachine" 
+                                 StoreName="My" />
 
     <ApplicationParameterFile Path="..\ApplicationParameters\Cloud.xml" />
   <CopyPackageParameters CompressPackage="true" />
