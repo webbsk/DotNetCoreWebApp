@@ -15,20 +15,63 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
   inputs:
-    restoreSolution: '$(solution)'
+    command: restore
+    projects: |
+     **/SimpleNetCoreWebApp.csproj
+     
+    feedsToUse: config
+    nugetConfigPath: .nuget/NuGet.config
+    externalFeedCredentials: 'Cosmos, msblox-AzureGenevaMonitoring, Official Universal Store OSS Package Feed'
 
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+#Your build pipeline references the ‘BuildConfiguration’ variable, which you’ve selected to be settable at queue time. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab, and then select the option to make it settable at queue time. See https://go.microsoft.com/fwlink/?linkid=865971
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    projects: |
+     **/SimpleNetCoreWebApp.sln
+     
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish'
+  inputs:
+    command: publish
+    publishWebProjects: false
+    projects: |
+     **/SimpleNetCoreWebApp.csproj
+     
+    arguments: '-o $(Build.SourcesDirectory)/drop/$(BuildConfiguration)/Product/Dcc --configuration $(BuildConfiguration)'
+    zipAfterPublish: false
+
+- task: Docker@0
+  displayName: 'Build an image'
+  inputs:
+    azureSubscription: 'Mpoc-Prod-WWSF'
+    azureContainerRegistry: '{"loginServer":"NautilusEv2DemoACR.azurecr.io", "id" : "/subscriptions/9d9a1dd9-e1aa-4408-93c7-c7b6c5e85ee2/resourceGroups/NautilusEv2DemoRG/providers/Microsoft.ContainerRegistry/registries/NautilusEv2DemoACR"}'
+    dockerFile: 'Dockerfile'
+    buildArguments: '--no-cache'
+    imageName: 'NautilusEv2DemoACR.azurecr.io/dcc/dccfd:$(Build.DefinitionName)_$(Build.BuildNumber)'
+    additionalImageTags: |
+     $(Build.BuildId)
+     $(Build.BuildNumber)
+     
+    includeSourceTags: true
+    includeLatestTag: true
+
+- task: Docker@0
+  displayName: 'Push an image'
+  inputs:
+    azureSubscription: 'Mpoc-Prod-WWSF'
+    azureContainerRegistry: '{"loginServer":"NautilusEv2DemoACR.azurecr.io", "id" : "/subscriptions/9d9a1dd9-e1aa-4408-93c7-c7b6c5e85ee2/resourceGroups/NautilusEv2DemoRG/providers/Microsoft.ContainerRegistry/registries/NautilusEv2DemoACR"}'
+    action: 'Push an image'
+    imageName: 'NautilusEv2DemoACR.azurecr.io/dcc/dccfd:$(Build.DefinitionName)_$(Build.BuildNumber)'
+    additionalImageTags: |
+     $(Build.BuildId)
+     $(Build.BuildNumber)
+     
+    includeSourceTags: true
+    includeLatestTag: true
