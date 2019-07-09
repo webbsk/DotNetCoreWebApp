@@ -16,7 +16,7 @@
 
 
   <ItemGroup>
-    <None Update="SimpleWebApp.dockerfile">
+    <None Update="SimpleNetCoreWebApp.dockerfile">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
