@@ -49,7 +49,7 @@ steps:
 - task: Docker@0
   displayName: 'Build an image'
   inputs:
-    azureSubscription: 'Ds3 Container'
+    azureSubscription: 'TemplateService DS3 Container Registry'
     azureContainerRegistry: '{"loginServer":"NautilusEv2DemoACR.azurecr.io", "id" : "/subscriptions/9d9a1dd9-e1aa-4408-93c7-c7b6c5e85ee2/resourceGroups/NautilusEv2DemoRG/providers/Microsoft.ContainerRegistry/registries/NautilusEv2DemoACR"}'
     dockerFile: 'src/SimpleNetCoreWebApp/SimpleNetCoreWebApp/SimpleNetCoreWebApp.dockerfile'
     buildArguments: '--no-cache'
