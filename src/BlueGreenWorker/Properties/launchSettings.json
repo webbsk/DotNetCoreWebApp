@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ReferenceWorkerSF": {
-      "commandName": "Project",
-      "commandLineArgs": "-RunLocal"
-    }
-  }
-}

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Name="fabric:/ReferenceService" xmlns="http://schemas.microsoft.com/2011/01/fabric" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Parameters>
-    <Parameter Name="ReferenceWorker_InstanceCount" Value="-1" />
-    <Parameter Name="ReferenceFD_InstanceCount" Value="-1" />
-    <Parameter Name="VAULTNAME" Value="bluegreenkv.vault.azure.net"/>
-    <Parameter Name="Environment" Value="__EnvironmentName__"/>
-  </Parameters>
-</Application>

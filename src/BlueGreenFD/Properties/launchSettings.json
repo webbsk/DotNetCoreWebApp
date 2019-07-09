@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ReferenceFDSF": {
-      "commandName": "Project",
-      "commandLineArgs": "-RunLocal"
-    }
-  }
-}

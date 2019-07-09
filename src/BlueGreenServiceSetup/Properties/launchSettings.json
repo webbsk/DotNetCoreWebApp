@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "ReferenceServiceSetup": {
-      "commandName": "Project",
-      "commandLineArgs": "-RunLocal"
-    }
-  }
-}

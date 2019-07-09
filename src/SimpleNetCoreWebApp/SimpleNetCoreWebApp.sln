@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleNetCoreWebApp", "SimpleNetCoreWebApp\SimpleNetCoreWebApp.csproj", "{979B7502-5662-41B8-AE71-AE2685316520}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{979B7502-5662-41B8-AE71-AE2685316520}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{979B7502-5662-41B8-AE71-AE2685316520}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{979B7502-5662-41B8-AE71-AE2685316520}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{979B7502-5662-41B8-AE71-AE2685316520}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EAA932F6-CFDC-433D-A5D7-74BF0FF81FC4}
+	EndGlobalSection
+EndGlobal

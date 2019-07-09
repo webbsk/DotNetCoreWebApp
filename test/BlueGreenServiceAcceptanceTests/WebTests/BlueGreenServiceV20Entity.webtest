@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<WebTest Name="ReferenceServiceV20Entity" Id="f0775d78-d130-4ff1-b8f5-4a0b93520872" Owner="" Priority="2147483647" Enabled="True" CssProjectStructure="" CssIteration="" Timeout="0" WorkItemIds="" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" Description="" CredentialUserName="" CredentialPassword="" PreAuthenticate="True" Proxy="default" StopOnError="False" RecordedResultFile="" ResultsLocale="">
-  <Items>
-    <Request Method="GET" Guid="12ffdfc3-881a-43b6-a6cf-dd3991388297" Version="1.1" Url="http://mp-refsvc-int-wusf.westus.cloudapp.azure.com/v2.0/entities/1" ThinkTime="1" Timeout="300" ParseDependentRequests="False" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="1" Encoding="utf-8" ExpectedHttpStatusCode="200" ExpectedResponseUrl="" ReportingName="V2.0_Entity_Get" IgnoreHttpStatusCode="False" />
-    <Request Method="POST" Guid="51bac660-de57-4d28-8480-8b2fcb831c18" Version="1.1" Url="http://mp-refsvc-int-wusf.westus.cloudapp.azure.com/v2.0/entities" ThinkTime="0" Timeout="300" ParseDependentRequests="True" FollowRedirects="True" RecordResult="True" Cache="False" ResponseTimeGoal="0" Encoding="utf-8" ExpectedHttpStatusCode="0" ExpectedResponseUrl="" ReportingName="V2.0_Entity_Post" IgnoreHttpStatusCode="False">
-      <StringHttpBody ContentType="application/json" InsertByteOrderMark="False">ewAiAGkAZAAiADoAIgA2ACIALAAiAG4AdQBtAGIAZQByACIAOgA1ACwAIgBiAGwAbwBiACIAOgAiAEEAUQBJAEQAQgBBAD0APQAiACwAIgB1AHMAZQByAEkAZAAiADoAMQB9AA==</StringHttpBody>
-    </Request>
-  </Items>
-</WebTest>
