@@ -27,24 +27,24 @@ steps:
 
 #Your build pipeline references the ‘BuildConfiguration’ variable, which you’ve selected to be settable at queue time. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab, and then select the option to make it settable at queue time. See https://go.microsoft.com/fwlink/?linkid=865971
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
-  inputs:
-    projects: |
-     **/SimpleNetCoreWebApp.sln
+#- task: DotNetCoreCLI@2
+#  displayName: 'dotnet build'
+#  inputs:
+#    projects: |
+#     **/SimpleNetCoreWebApp.sln
      
-    arguments: '--configuration $(BuildConfiguration)'
+#    arguments: '--configuration $(BuildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet publish'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: |
-     **/SimpleNetCoreWebApp.csproj
+#- task: DotNetCoreCLI@2
+#  displayName: 'dotnet publish'
+#  inputs:
+#    command: publish
+#    publishWebProjects: false
+#    projects: |
+#     **/SimpleNetCoreWebApp.csproj
      
-    arguments: '-o $(Build.SourcesDirectory)/drop/$(BuildConfiguration)/Product/Dcc --configuration $(BuildConfiguration)'
-    zipAfterPublish: false
+#    arguments: '-o $(Build.SourcesDirectory)/drop/$(BuildConfiguration)/Product/Dcc --configuration $(BuildConfiguration)'
+#    zipAfterPublish: false
 
 - task: Docker@0
   displayName: 'Build an image'
